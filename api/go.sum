@@ -37,6 +37,8 @@ github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d/go.mod h1:YUTz3bUH
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/rnikoopour/onelogin v1.0.1-0.20200828183156-b9ce27eae926 h1:4+Ojiw6Yf8I/xEHAJvO+h0QpuHCnwkXBtTNue9pG5Bs=
+github.com/rnikoopour/onelogin v1.0.1-0.20200828183156-b9ce27eae926/go.mod h1:PdcMIhvDqquHjkce5WCbYTddPTMeTdCnlWPVtOLz7Eg=
 github.com/rnikoopour/onelogin v1.0.1 h1:jvZKWR4acBFz31BHyTmWgAy4RUmSn2claS+wb+eC8nw=
 github.com/rnikoopour/onelogin v1.0.1/go.mod h1:OCpxF6ngbgRyKy+nKKyjtzEnrwjyUeiuSn+c4/5M4N0=
 github.com/russross/blackfriday/v2 v2.0.1/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
