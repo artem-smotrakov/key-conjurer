@@ -11,7 +11,7 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
-	github.com/rnikoopour/onelogin v1.0.1-0.20200828211142-ae140ba96006
+	github.com/rnikoopour/onelogin v1.0.1-0.20200828211142-ae140ba96006 // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/stretchr/testify v1.5.1
 	golang.org/x/net v0.0.0-20200822124328-c89045814202 // indirect
