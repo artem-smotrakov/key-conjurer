@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/riotgames/key-conjurer/api/authenticators/duo"
 	"github.com/riotgames/key-conjurer/api/authenticators/okta"
@@ -66,7 +67,7 @@ type GetUserDataPayload struct {
 // GetUserDataEventHandler authenticates the user against OneLogin and retrieves a list of AWS application the user has available.
 //
 // This MUST be backwards compatible with the old version of KeyConjurer for a time.
-func (h *Handler) GetUserDataEventHandler(ctx context.Context, event GetUserDataEvent) (Response, error) {
+func (h *Handler) GetUserDataEventHandler(ctx context.Context, event GetUserDataEvent) (*events.APIGatewayProxyResponse, error) {
 	log := h.log
 	if err := h.crypt.Decrypt(ctx, &event.Credentials); err != nil {
 		log.Errorf("unable to decrypt credentials: %s", err)
@@ -150,7 +151,7 @@ type GetTemporaryCredentialsPayload struct {
 // GetTemporaryCredentialEventHandler issues temporary credentials for the current user.
 //
 // This MUST be backwards compatible with the old version of KeyConjurer for a time.
-func (h *Handler) GetTemporaryCredentialEventHandler(ctx context.Context, event GetTemporaryCredentialEvent) (Response, error) {
+func (h *Handler) GetTemporaryCredentialEventHandler(ctx context.Context, event GetTemporaryCredentialEvent) (*events.APIGatewayProxyResponse, error) {
 	log := h.log
 	if err := event.Validate(); err != nil {
 		log.Infof("bad request: %s", err.Error())
@@ -219,7 +220,7 @@ type ListProvidersPayload struct {
 // ListProvidersHandler allows a user to list the providers they may authenticate with.
 //
 // This does NOT need to be backwards compatible with old KeyConjurer clients.
-func (h *Handler) ListProvidersHandler(ctx context.Context) (Response, error) {
+func (h *Handler) ListProvidersHandler(ctx context.Context) (*events.APIGatewayProxyResponse, error) {
 	var p []Provider
 	for key := range h.authenticationProviders {
 		p = append(p, Provider{ID: key})
