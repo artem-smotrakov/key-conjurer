@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"io"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/aws/aws-lambda-go/events"
@@ -20,7 +20,7 @@ func (s *server) getAWSCreds(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	body, err := io.ReadAll(r.Body)
+	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
