@@ -2,8 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"io"
 	"net/http"
 
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/riotgames/key-conjurer/api/keyconjurer"
 	"github.com/riotgames/key-conjurer/api/settings"
 )
@@ -18,14 +20,14 @@ func (s *server) getAWSCreds(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var ev keyconjurer.GetTemporaryCredentialEvent
-	dec := json.NewDecoder(r.Body)
-	if err := dec.Decode(&ev); err != nil {
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
-	resp, err := s.h.GetTemporaryCredentialEventHandler(r.Context(), ev)
+	request := &events.APIGatewayProxyRequest{Body: string(body)}
+	resp, err := s.h.GetTemporaryCredentialEventHandler(r.Context(), request)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
