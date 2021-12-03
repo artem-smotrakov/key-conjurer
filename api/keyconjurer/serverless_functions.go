@@ -2,6 +2,7 @@ package keyconjurer
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 
@@ -151,7 +152,10 @@ type GetTemporaryCredentialsPayload struct {
 // GetTemporaryCredentialEventHandler issues temporary credentials for the current user.
 //
 // This MUST be backwards compatible with the old version of KeyConjurer for a time.
-func (h *Handler) GetTemporaryCredentialEventHandler(ctx context.Context, event GetTemporaryCredentialEvent) (*events.APIGatewayProxyResponse, error) {
+func (h *Handler) GetTemporaryCredentialEventHandler(ctx context.Context, req events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
+	var event GetTemporaryCredentialEvent
+	json.Unmarshal([]byte(req.Body), &event)
+
 	log := h.log
 	if err := event.Validate(); err != nil {
 		log.Infof("bad request: %s", err.Error())
