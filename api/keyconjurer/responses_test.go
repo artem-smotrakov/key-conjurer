@@ -17,7 +17,7 @@ func TestResponseMarshalJSON(t *testing.T) {
 	b, _ := json.Marshal(data)
 
 	expectedBody := `{\"Success\":true,\"Message\":\"success\",\"Data\":{\"Foo\":\"Foo\",\"Bar\":\"Qux\"}}`
-	expectedData := fmt.Sprintf(`{"statusCode":200,"headers":{"Content-Type":"application/json"},"multiValueHeaders":null,"body":"%s"}`, expectedBody)
+	expectedData := fmt.Sprintf(`{"statusCode":200,"headers":null,"multiValueHeaders":null,"body":"%s"}`, expectedBody)
 	require.Equal(t, expectedData, string(b))
 }
 
@@ -31,7 +31,7 @@ func TestErrorResponseMarshalJSON(t *testing.T) {
 	require.NoError(t, err)
 	require.NotNil(t, b)
 	expectedBody := fmt.Sprintf(`{\"Success\":false,\"Message\":\"%s\",\"Data\":{\"Code\":\"bad_request\",\"Message\":\"%s\"}}`, message, message)
-	expectedData := fmt.Sprintf(`{"statusCode":400,"headers":{"Content-Type":"application/json"},"multiValueHeaders":null,"body":"%s"}`, expectedBody)
+	expectedData := fmt.Sprintf(`{"statusCode":400,"headers":null,"multiValueHeaders":null,"body":"%s"}`, expectedBody)
 	require.Equal(t, expectedData, string(b))
 }
 
