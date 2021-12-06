@@ -19,6 +19,24 @@ func TestResponseMarshalJSON(t *testing.T) {
 	require.Equal(t, `{"Success":true,"Message":"success","Data":{"Foo":"Foo","Bar":"Qux"}}`, string(b))
 }
 
+func TestResponseUnmarshalJSON(t *testing.T) {
+	type T struct {
+		Foo, Bar string
+	}
+
+	data := `{"Success":true,"Message":"success","Data":{"Foo":"Foo","Bar":"Qux"}}`
+
+	var response Response
+	err := response.UnmarshalJSON([]byte(data))
+	require.Nil(t, err)
+
+	var payload T
+	err = response.GetPayload(&payload)
+	require.Nil(t, err)
+	require.Equal(t, payload.Foo, "Foo")
+	require.Equal(t, payload.Bar, "Qux")
+}
+
 func TestErrorResponseMarshalJSON(t *testing.T) {
 	message := "this is a error message"
 	data, responseErr := ErrorResponse(ErrBadRequest, message)
@@ -31,6 +49,22 @@ func TestErrorResponseMarshalJSON(t *testing.T) {
 	require.Nil(t, marshalErr)
 	expectedData := fmt.Sprintf(`{"Success":false,"Message":"%s","Data":{"Code":"bad_request","Message":"%s"}}`, message, message)
 	require.Equal(t, expectedData, string(b))
+}
+
+func TestErrorResponseUnmarshalJSON(t *testing.T) {
+	message := "this is a error message"
+	var code ErrorCode = "bad_request"
+	data := fmt.Sprintf(`{"Success":false,"Message":"%s","Data":{"Code":"%s","Message":"%s"}}`, message, code, message)
+
+	var errorResponse Response
+	err := errorResponse.UnmarshalJSON([]byte(data))
+	require.Nil(t, err)
+
+	var errorData ErrorData
+	err = errorResponse.GetError(&errorData)
+	require.Nil(t, err)
+	require.Contains(t, errorData.Error(), message)
+	require.Equal(t, errorData.Code, code)
 }
 
 func TestResponseGetPayload(t *testing.T) {
