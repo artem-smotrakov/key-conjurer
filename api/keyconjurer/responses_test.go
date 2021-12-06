@@ -2,6 +2,7 @@ package keyconjurer
 
 import (
 	"encoding/json"
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -16,6 +17,17 @@ func TestResponseMarshalJSON(t *testing.T) {
 	b, _ := json.Marshal(data)
 
 	require.Equal(t, `{"Success":true,"Message":"success","Data":{"Foo":"Foo","Bar":"Qux"}}`, string(b))
+}
+
+func TestErrorResponseMarshalJSON(t *testing.T) {
+	message := "this is a error message"
+	data, err := ErrorResponse(ErrBadRequest, message)
+	require.Nil(t, err)
+	require.NotNil(t, data)
+
+	b, _ := json.Marshal(data)
+	expectedData := fmt.Sprintf(`{"Success":false,"Message":"%s","Data":{"Code":"bad_request","Message":"%s"}}`, message, message)
+	require.Equal(t, expectedData, string(b))
 }
 
 func TestResponseGetPayload(t *testing.T) {
