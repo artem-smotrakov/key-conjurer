@@ -59,17 +59,6 @@ resource "aws_api_gateway_integration" "endpoint_integrations" {
   depends_on              = [aws_api_gateway_method.endpoint_method]
 }
 
-resource "aws_api_gateway_integration_response" "endpoint_integration_response_200" {
-  rest_api_id = var.rest_api_id
-  resource_id = var.resource_id
-  http_method = aws_api_gateway_method.endpoint_method.http_method
-  status_code = aws_api_gateway_method_response.endpoint_method_response_200.status_code
-  response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'"
-  }
-  depends_on = [aws_api_gateway_integration.endpoint_integrations, aws_api_gateway_method_response.endpoint_method_response_200]
-}
-
 resource "aws_api_gateway_integration_response" "endpoint_integration_response_400" {
   rest_api_id = var.rest_api_id
   resource_id = var.resource_id
@@ -104,6 +93,17 @@ resource "aws_api_gateway_integration_response" "endpoint_integration_response_5
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
   depends_on = [aws_api_gateway_integration.endpoint_integrations, aws_api_gateway_method_response.endpoint_method_response_500]
+}
+
+resource "aws_api_gateway_integration_response" "endpoint_integration_response_200" {
+  rest_api_id = var.rest_api_id
+  resource_id = var.resource_id
+  http_method = aws_api_gateway_method.endpoint_method.http_method
+  status_code = aws_api_gateway_method_response.endpoint_method_response_200.status_code
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
+  depends_on = [aws_api_gateway_integration.endpoint_integrations, aws_api_gateway_method_response.endpoint_method_response_200]
 }
 
 resource "aws_lambda_permission" "lambda_permissions" {
