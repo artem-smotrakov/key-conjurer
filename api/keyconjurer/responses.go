@@ -162,8 +162,9 @@ func ErrorResponse(code ErrorCode, message string) (*events.APIGatewayProxyRespo
 // TODO comment
 func GetAPIGatewayProxyResponse(code ErrorCode, body []byte) (*events.APIGatewayProxyResponse, error) {
 	return &events.APIGatewayProxyResponse{
-		StatusCode: code.GetHttpStatus(),
-		Headers:    map[string]string{"Content-Type": "application/json"},
-		Body:       string(body),
+		StatusCode:      code.GetHttpStatus(),
+		Headers:         map[string]string{"Content-Type": "application/json"},
+		Body:            string(body),
+		IsBase64Encoded: false,
 	}, nil
 }
