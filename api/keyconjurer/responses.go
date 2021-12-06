@@ -101,7 +101,6 @@ var (
 type ErrorCode string
 
 // ErrorData encapsulates error information relating to an AWS Lambda call.
-// Lambda does not make it trivial to return HTTP status codes, so instead the application should interrogate the Code value in this struct.
 type ErrorData struct {
 	Code    ErrorCode
 	Message string
@@ -114,7 +113,7 @@ func (e ErrorData) Error() string {
 var _ error = ErrorData{}
 
 // ErrorResponse creates a standardized error response with an error message from the server.
-// It also always returns a nil error, simply to make returning from a Lambda less cumbersome.
 func ErrorResponse(code ErrorCode, message string) (Response, error) {
-	return Response{Success: false, Message: message, Data: ErrorData{Code: code, Message: message}}, nil
+	data := ErrorData{Code: code, Message: message}
+	return Response{Success: false, Message: message, Data: data}, errors.New(data.Error())
 }

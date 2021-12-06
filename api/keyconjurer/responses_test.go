@@ -21,11 +21,14 @@ func TestResponseMarshalJSON(t *testing.T) {
 
 func TestErrorResponseMarshalJSON(t *testing.T) {
 	message := "this is a error message"
-	data, err := ErrorResponse(ErrBadRequest, message)
-	require.Nil(t, err)
+	data, responseErr := ErrorResponse(ErrBadRequest, message)
+	require.NotNil(t, responseErr)
 	require.NotNil(t, data)
+	require.IsType(t, ErrorData{}, data.Data)
+	require.Equal(t, responseErr.Error(), data.Data.(ErrorData).Error())
 
-	b, _ := json.Marshal(data)
+	b, marshalErr := json.Marshal(data)
+	require.Nil(t, marshalErr)
 	expectedData := fmt.Sprintf(`{"Success":false,"Message":"%s","Data":{"Code":"bad_request","Message":"%s"}}`, message, message)
 	require.Equal(t, expectedData, string(b))
 }
