@@ -163,7 +163,7 @@ func ErrorResponse(code ErrorCode, message string) (*events.APIGatewayProxyRespo
 func GetAPIGatewayProxyResponse(code ErrorCode, body []byte) (*events.APIGatewayProxyResponse, error) {
 	return &events.APIGatewayProxyResponse{
 		StatusCode:        code.GetHttpStatus(),
-		Headers:           map[string]string{"Content-Type": "application/json", "Test-Header": "Test"},
+		Headers:           map[string]string{"Content-Type": "application/json", "Access-Control-Allow-Origin": "*"},
 		MultiValueHeaders: make(map[string][]string),
 		Body:              string(body),
 		IsBase64Encoded:   false,
