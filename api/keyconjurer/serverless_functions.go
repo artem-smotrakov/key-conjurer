@@ -68,7 +68,10 @@ type GetUserDataPayload struct {
 // GetUserDataEventHandler authenticates the user against OneLogin and retrieves a list of AWS application the user has available.
 //
 // This MUST be backwards compatible with the old version of KeyConjurer for a time.
-func (h *Handler) GetUserDataEventHandler(ctx context.Context, event GetUserDataEvent) (*events.APIGatewayProxyResponse, error) {
+func (h *Handler) GetUserDataEventHandler(ctx context.Context, req *events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
+	var event GetUserDataEvent
+	json.Unmarshal([]byte(req.Body), &event)
+
 	log := h.log
 	if err := h.crypt.Decrypt(ctx, &event.Credentials); err != nil {
 		log.Errorf("unable to decrypt credentials: %s", err)
