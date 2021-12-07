@@ -64,6 +64,7 @@ resource "aws_api_gateway_integration_response" "endpoint_integration_response_4
   resource_id = var.resource_id
   http_method = aws_api_gateway_method.endpoint_method.http_method
   status_code = aws_api_gateway_method_response.endpoint_method_response_400.status_code
+  uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${var.region}:${var.account_number}:function:${var.lambda_name}/invocations"
   selection_pattern = ".*(unsupported_provider|unspecified|decryption_failure|encryption_failure|bad_request).*"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
@@ -76,6 +77,7 @@ resource "aws_api_gateway_integration_response" "endpoint_integration_response_4
   resource_id = var.resource_id
   http_method = aws_api_gateway_method.endpoint_method.http_method
   status_code = aws_api_gateway_method_response.endpoint_method_response_403.status_code
+  uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${var.region}:${var.account_number}:function:${var.lambda_name}/invocations"
   selection_pattern = ".*invalid_credentials.*"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
@@ -88,6 +90,7 @@ resource "aws_api_gateway_integration_response" "endpoint_integration_response_5
   resource_id = var.resource_id
   http_method = aws_api_gateway_method.endpoint_method.http_method
   status_code = aws_api_gateway_method_response.endpoint_method_response_500.status_code
+  uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${var.region}:${var.account_number}:function:${var.lambda_name}/invocations"
   selection_pattern = ".*internal_server_error.*"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
@@ -100,6 +103,7 @@ resource "aws_api_gateway_integration_response" "endpoint_integration_response_2
   resource_id = var.resource_id
   http_method = aws_api_gateway_method.endpoint_method.http_method
   status_code = aws_api_gateway_method_response.endpoint_method_response_200.status_code
+  uri = "arn:aws:apigateway:${var.region}:lambda:path/2015-03-31/functions/arn:aws:lambda:${var.region}:${var.account_number}:function:${var.lambda_name}/invocations"
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }

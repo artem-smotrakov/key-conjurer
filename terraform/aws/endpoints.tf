@@ -25,6 +25,7 @@ module "post_list_providers" {
   resource_id    = aws_api_gateway_resource.list_providers.id
   uri_arn        = aws_lambda_function.keyconjurer-list_providers.invoke_arn
   lambda_arn     = aws_lambda_function.keyconjurer-list_providers.arn
+  lambda_name    = aws_lambda_function.keyconjurer-list_providers.lambda_name
 }
 
 module "post_get_aws_creds" {
@@ -35,6 +36,7 @@ module "post_get_aws_creds" {
   resource_id    = aws_api_gateway_resource.get_aws_creds.id
   uri_arn        = aws_lambda_function.keyconjurer-get_aws_creds.invoke_arn
   lambda_arn     = aws_lambda_function.keyconjurer-get_aws_creds.arn
+  lambda_name    = aws_lambda_function.keyconjurer-get_aws_creds.lambda_name
 }
 
 module "post_get_user_data" {
@@ -45,6 +47,7 @@ module "post_get_user_data" {
   resource_id    = aws_api_gateway_resource.get_user_data.id
   uri_arn        = aws_lambda_function.keyconjurer-get_user_data.invoke_arn
   lambda_arn     = aws_lambda_function.keyconjurer-get_user_data.arn
+  lambda_name    = aws_lambda_function.keyconjurer-get_user_data.lambda_name
 }
 
 module "options_get_user_data" {

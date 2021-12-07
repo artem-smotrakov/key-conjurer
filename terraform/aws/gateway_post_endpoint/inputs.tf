@@ -21,3 +21,7 @@ variable "uri_arn" {
 variable "lambda_arn" {
     description = "ARN for the lambda to be invoked"
 }
+
+variable "lambda_name" {
+    description = "Name of lambda"
+}
